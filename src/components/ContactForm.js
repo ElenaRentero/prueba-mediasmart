@@ -1,6 +1,6 @@
 import styles from '@/styles/FormPage.module.css'
 
-import { Box, FormControl, FilledInput, FormControlLabel, Checkbox } from '@mui/material'
+import { Box, FormControl, FilledInput, FormControlLabel, Checkbox, FormHelperText } from '@mui/material'
 import Textarea from '@mui/joy/Textarea'
 
 const ContactForm = ({ value, onChange }) => {
@@ -19,6 +19,41 @@ const ContactForm = ({ value, onChange }) => {
       selectTreatment: event.target.checked
     })
   }
+
+  const getFullNameError = (fullName) => {
+    const trimmedFullName = fullName.trim()
+
+    return trimmedFullName === '' || trimmedFullName.length <= 3
+  }
+
+  const getEmailError = (email) => {
+    const trimmedEmail = email.trim()
+    const expReg = /^[\d\w\-_]+?@[\d\w\-_]+?\.[\w]+$/
+
+    return !expReg.test(trimmedEmail) || trimmedEmail === ''
+  }
+
+  const getPhoneError = (phone) => {
+    const trimmedPhone = phone.trim()
+    const expReg = /^[0-9]*$/
+
+    return !expReg.test(trimmedPhone) || trimmedPhone === ''
+  }
+
+  const getMessageError = (message) => {
+    const trimmedMessage = message.trim()
+
+    return trimmedMessage === '' || trimmedMessage.length <= 10
+  }
+
+  const errors = {
+    fullName: getFullNameError(value.fullName),
+    email: getEmailError(value.email),
+    message: getMessageError(value.message),
+    phone: getPhoneError(value.phone)
+  }
+
+  // const hasErrors = Object.keys(errors).some(field => !!errors[field])
 
   return (
     <section>
@@ -41,10 +76,11 @@ const ContactForm = ({ value, onChange }) => {
             autoComplete='no'
             value={value.fullName}
             onChange={fieldChangeHandler('fullName')}
+            error={!!errors.fullName}
             sx={{
               borderRadius: 25,
               background: '#f9f9fa',
-              paddingLeft: '20px',
+              paddingLeft: '8px',
               fontFamily: 'inherit',
               fontSize: '100%',
               fontWeight: 'inherit',
@@ -52,6 +88,7 @@ const ContactForm = ({ value, onChange }) => {
             }}
             inputProps={{ sx: { paddingTop: '8px' } }}
           />
+          {errors.fullName ? <FormHelperText>Please complete this required field.</FormHelperText> : ''}
         </FormControl>
         <FormControl fullWidth margin='normal'>
           <FilledInput
@@ -61,10 +98,11 @@ const ContactForm = ({ value, onChange }) => {
             autoComplete='no'
             value={value.email}
             onChange={fieldChangeHandler('email')}
+            error={!!errors.email}
             sx={{
               borderRadius: 25,
               background: '#f9f9fa',
-              paddingLeft: '20px',
+              paddingLeft: '8px',
               fontFamily: 'inherit',
               fontSize: '100%',
               fontWeight: 'inherit',
@@ -72,6 +110,7 @@ const ContactForm = ({ value, onChange }) => {
             }}
             inputProps={{ sx: { paddingTop: '8px' } }}
           />
+          {errors.email ? <FormHelperText>Please complete this required field.</FormHelperText> : ''}
         </FormControl>
         <FormControl fullWidth margin='normal'>
           <FilledInput
@@ -80,11 +119,12 @@ const ContactForm = ({ value, onChange }) => {
             disableUnderline
             autoComplete='no'
             value={value.phone}
-            onChange={fieldChangeHandler}
+            error={!!errors.phone}
+            onChange={fieldChangeHandler('phone')}
             sx={{
               borderRadius: 25,
               background: '#f9f9fa',
-              paddingLeft: '20px',
+              paddingLeft: '8px',
               fontFamily: 'inherit',
               fontSize: '100%',
               fontWeight: 'inherit',
@@ -92,13 +132,14 @@ const ContactForm = ({ value, onChange }) => {
             }}
             inputProps={{ sx: { paddingTop: '8px' } }}
           />
+          {errors.phone ? <FormHelperText>Enter a valid phone number.</FormHelperText> : ''}
         </FormControl>
         <FormControl
           fullWidth
           margin='normal'
         >
           <FormControlLabel
-            label='Include the treatment that will be given when sending the form.'
+            label='Include the treatment that will be given when sending the form:'
             componentsProps={{
               typography: {
                 fontFamily: 'inherit',
@@ -125,12 +166,13 @@ const ContactForm = ({ value, onChange }) => {
       >
         <FormControl fullWidth margin='normal' sx={{ marginTop: 0 }}>
           <Textarea
-            placeholder='Message' minRows={2} variant='plain' sx={{
+            placeholder='Message' minRows={2} variant='plain' value={value.message} onChange={fieldChangeHandler('message')} sx={{
               background: '#f9f9fa',
               paddingLeft: '20px'
             }}
             style={{ '--Textarea-focusedHighlight': 'none' }}
           />
+          {errors.message ? <FormHelperText>Please complete this required field.</FormHelperText> : ''}
         </FormControl>
       </Box>
     </section>
