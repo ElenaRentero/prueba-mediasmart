@@ -1,16 +1,26 @@
-import { Poppins } from 'next/font/google'
-// import styles from '@/styles/FormPage.module.css'
+import { useState } from 'react'
 
-const poppins = Poppins({
-  weight: ['300', '400', '500', '600', '700'],
-  style: ['normal', 'italic'],
-  subsets: ['latin']
-})
+import Head from 'next/head'
+
+import Header from '@/components/Header'
+import ContactForm from '@/components/ContactForm'
 
 export default function FormPage () {
+  const [user, setUser] = useState({
+    fullName: '',
+    email: '',
+    phone: '',
+    message: '',
+    selectTreatment: 'false'
+  })
+
   return (
-    <div className={poppins.className}>
-      <p>Hello World</p>
-    </div>
+    <>
+      <Head>
+        <title>Mediasmart Contact Form</title>
+      </Head>
+      <Header />
+      <ContactForm value={user} onChange={setUser} />
+    </>
   )
 }
