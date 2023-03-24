@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+import PropTypes from 'prop-types'
+
 import styles from '@/styles/FormPage.module.css'
 
 import { Box, FormControl, FilledInput, FormControlLabel, Checkbox, FormHelperText, Select, MenuItem, Button } from '@mui/material'
@@ -231,6 +233,24 @@ const ContactForm = ({ value, onChange, submitForm }) => {
       </Box>
     </section>
   )
+}
+
+ContactForm.defaultProps = {
+  onChange: () => {},
+  submitForm: () => {}
+}
+
+ContactForm.propTypes = {
+  value: PropTypes.shape({
+    fullName: PropTypes.string,
+    email: PropTypes.string,
+    phone: PropTypes.string,
+    message: PropTypes.string,
+    selectTreatment: PropTypes.bool,
+    gender: PropTypes.string
+  }),
+  onChange: PropTypes.func,
+  submitForm: PropTypes.func
 }
 
 export default ContactForm
