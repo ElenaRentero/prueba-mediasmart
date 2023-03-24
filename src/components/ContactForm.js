@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import styles from '@/styles/FormPage.module.css'
 
-import { Box, FormControl, FilledInput, FormControlLabel, Checkbox, FormHelperText, Select, MenuItem } from '@mui/material'
+import { Box, FormControl, FilledInput, FormControlLabel, Checkbox, FormHelperText, Select, MenuItem, Button } from '@mui/material'
 import Textarea from '@mui/joy/Textarea'
 
 const ContactForm = ({ value, onChange }) => {
@@ -199,6 +199,34 @@ const ContactForm = ({ value, onChange }) => {
           />
           {errors.message ? <FormHelperText>Please complete this required field.</FormHelperText> : ''}
         </FormControl>
+      </Box>
+      <Box
+        maxWidth={600}
+        mx='auto'
+        my={2}
+        display='flex'
+        justifyContent='flex-end'
+      >
+        <Button
+          color='primary'
+          variant='contained'
+          // onClick={onUpdate}
+          sx={{
+            '&:hover': { backgroundColor: '#0255a8' },
+            fontFamily: 'inherit',
+            textTransform: 'capitalize',
+            fontWeight: '600',
+            padding: '12px 25px 12px 25px',
+            backgroundColor: '#0255a8',
+            boxShadow: '10px 10px 0 0 rgba(2,85,168,.19)',
+            cursor: 'pointer',
+            transition: 'all .5s ease',
+            borderRadius: '0.12em'
+
+          }}
+        >
+          Submit
+        </Button>
       </Box>
     </section>
   )
