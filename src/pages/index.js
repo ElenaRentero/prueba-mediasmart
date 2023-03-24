@@ -11,7 +11,8 @@ export default function FormPage () {
     email: '',
     phone: '',
     message: '',
-    selectTreatment: 'false'
+    selectTreatment: 'false',
+    gender: ''
   })
 
   return (

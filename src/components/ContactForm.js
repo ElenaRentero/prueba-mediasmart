@@ -1,9 +1,13 @@
+import { useState } from 'react'
+
 import styles from '@/styles/FormPage.module.css'
 
-import { Box, FormControl, FilledInput, FormControlLabel, Checkbox, FormHelperText } from '@mui/material'
+import { Box, FormControl, FilledInput, FormControlLabel, Checkbox, FormHelperText, Select, MenuItem } from '@mui/material'
 import Textarea from '@mui/joy/Textarea'
 
 const ContactForm = ({ value, onChange }) => {
+  const [showSelect, setShowSelect] = useState(false)
+
   const fieldChangeHandler = (fieldName) => {
     return (event) => {
       onChange({
@@ -18,6 +22,7 @@ const ContactForm = ({ value, onChange }) => {
       ...value,
       selectTreatment: event.target.checked
     })
+    setShowSelect(event.target.checked)
   }
 
   const getFullNameError = (fullName) => {
@@ -137,6 +142,7 @@ const ContactForm = ({ value, onChange }) => {
         <FormControl
           fullWidth
           margin='normal'
+          sx={{ display: 'flex', alignItems: 'flex-end' }}
         >
           <FormControlLabel
             label='Include the treatment that will be given when sending the form:'
@@ -155,8 +161,27 @@ const ContactForm = ({ value, onChange }) => {
                 checked={value.receiveAds}
                 onChange={selectTreatmentChangeHandler}
               />
-          }
+            }
           />
+          {showSelect && (
+            <Select
+              value={value.gender}
+              onChange={fieldChangeHandler('gender')}
+              size='small'
+              variant='filled'
+              disableUnderline
+              sx={{
+                borderRadius: 25,
+                background: '#f9f9fa',
+                paddingLeft: '8px',
+                fontFamily: 'inherit',
+                minWidth: 110
+              }}
+              inputProps={{ sx: { paddingTop: '5px' } }}
+            >
+              <MenuItem value='sr'>Sr.</MenuItem>
+              <MenuItem value='sra'>Sra.</MenuItem>
+            </Select>)}
         </FormControl>
       </Box>
       <Box
