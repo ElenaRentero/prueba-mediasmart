@@ -5,7 +5,7 @@ import styles from '@/styles/FormPage.module.css'
 import { Box, FormControl, FilledInput, FormControlLabel, Checkbox, FormHelperText, Select, MenuItem, Button } from '@mui/material'
 import Textarea from '@mui/joy/Textarea'
 
-const ContactForm = ({ value, onChange }) => {
+const ContactForm = ({ value, onChange, submitForm }) => {
   const [showSelect, setShowSelect] = useState(false)
 
   const fieldChangeHandler = (fieldName) => {
@@ -58,7 +58,7 @@ const ContactForm = ({ value, onChange }) => {
     phone: getPhoneError(value.phone)
   }
 
-  // const hasErrors = Object.keys(errors).some(field => !!errors[field])
+  const hasErrors = Object.keys(errors).some(field => !!errors[field])
 
   return (
     <section>
@@ -210,7 +210,8 @@ const ContactForm = ({ value, onChange }) => {
         <Button
           color='primary'
           variant='contained'
-          // onClick={onUpdate}
+          onClick={submitForm}
+          disabled={hasErrors}
           sx={{
             '&:hover': { backgroundColor: '#0255a8' },
             fontFamily: 'inherit',

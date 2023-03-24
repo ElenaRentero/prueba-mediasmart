@@ -15,13 +15,36 @@ export default function FormPage () {
     gender: ''
   })
 
+  const submitForm = async () => {
+    const cleanUser = {
+      fullName: user.fullName,
+      email: user.email,
+      phone: user.phone,
+      message: user.message
+    }
+
+    if (user.selectTreatment) {
+      cleanUser.gender = user.gender
+    }
+
+    try {
+      await fetch('/api/contact', {
+        method: 'POST',
+        body: JSON.stringify(cleanUser),
+        headers: { 'Content-Type': 'application/json' }
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <>
       <Head>
         <title>Mediasmart Contact Form</title>
       </Head>
       <Header />
-      <ContactForm value={user} onChange={setUser} />
+      <ContactForm value={user} onChange={setUser} submitForm={submitForm} />
     </>
   )
 }
