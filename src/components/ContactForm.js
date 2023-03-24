@@ -44,7 +44,7 @@ const ContactForm = ({ value, onChange, submitForm }) => {
     const trimmedPhone = phone.trim()
     const expReg = /^[0-9]*$/
 
-    return !expReg.test(trimmedPhone) || trimmedPhone === ''
+    return !expReg.test(trimmedPhone)
   }
 
   const getMessageError = (message) => {
