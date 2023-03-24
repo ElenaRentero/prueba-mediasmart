@@ -2,7 +2,7 @@
 En este repositorio se encuentra el resultado de la prueba técnica de código realizada por Elena Clemente Rentero para **Mediasmart**. Se ha utilizado el framework de React **NextJS** para su desarrollo.
 
 > **Note**
-> Enlace directo al proyecto pinchando en el siguiente [enlace]()
+> Enlace directo al proyecto pinchando en el siguiente [enlace](https://mediasmart-contactform.netlify.app/)
 
 ## 📌 Descripción 
 
